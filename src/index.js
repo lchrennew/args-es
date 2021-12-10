@@ -42,13 +42,13 @@ const cases = [
     '-p abc -d hello world -g a -g b -g cde,f',
 ]
 cases.forEach(args => {
-    console.log(`CASE: `, args)
+    console.log(`CASE:`, args)
 
     try {
         const result = parser.parse(args)
         console.log(`RESULT:`, result)
     } catch (e) {
-        console.warn(`ERROR: `, e)
+        console.warn(`ERROR:`, e)
         schema.manual()
     }
     console.log('\n')

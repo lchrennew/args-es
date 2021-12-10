@@ -26,7 +26,7 @@ export default class ArgsParser {
     }
 
     parseFlag(part) {
-        if (!this.validateFlag(part)) throw `invalid flag ${part}`
+        if (!this.validateFlag(part)) throw `Invalid flag: ${part}`
         return part[1]
     }
 
