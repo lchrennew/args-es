@@ -1,4 +1,4 @@
-export default class Parser {
+export default class ArgsParser {
     schema
 
     constructor(schema) {
@@ -21,17 +21,17 @@ export default class Parser {
         return { ...this.schema.defaults(), ...args }
     }
 
-    checkFlag(part) {
+    validateFlag(part) {
         return part?.match(/^-.$/) && this.schema.defined(part[1])
     }
 
     parseFlag(part) {
-        if (!this.checkFlag(part)) throw `invalid flag ${part}`
+        if (!this.validateFlag(part)) throw `invalid flag ${part}`
         return part[1]
     }
 
     parseValue(flag, part) {
-        if (this.checkFlag(part)) return
+        if (this.validateFlag(part)) return
         const type = this.schema.typeOf(flag)
         return type.parse(part, this.schema.defaultOf(flag))
     }

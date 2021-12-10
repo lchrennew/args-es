@@ -2,10 +2,10 @@ import * as boolean from './types/boolean.js'
 import * as string from './types/string.js'
 import * as number from './types/number.js'
 import * as list from './types/list.js'
-import Schema from "./schema.js";
-import Parser from "./parser.js";
+import ArgsSchema from "./args-schema.js";
+import ArgsParser from "./args-parser.js";
 
-const schema = new Schema({
+const schema = new ArgsSchema({
     l: {
         description: 'Logging, logging will be disabled if this flag does not exists or set to false, true for enabled.',
         type: boolean,
@@ -27,27 +27,28 @@ const schema = new Schema({
     }
 })
 
-const parser = new Parser(schema)
+const parser = new ArgsParser(schema)
 
 const cases = [
     '',
     '-l',
     '-l true',
     '-l false',
-    '-p 80 -d hello_world',
+    '-d hello_world -p 80',
     '-p 0 -d hello_world -g a -g b -g e,f',
     '-p -2 -d hello_world -g a -g b -g e,f',
     '-p -2 -d hello world -g a -g b -g e,f',
+    '-p abc -d hello world -g a -g b -g cde,f',
 ]
 cases.forEach(args => {
     console.log(`CASE: `, args)
 
     try {
         const result = parser.parse(args)
-        console.log(result)
-        console.log('\n')
+        console.log(`RESULT:`, result)
     } catch (e) {
-        console.info(e)
+        console.warn(`WARNING: `, e)
         schema.manual()
     }
+    console.log('\n')
 })
