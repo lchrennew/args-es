@@ -25,11 +25,11 @@ export default class ArgsSchema {
     }
 
     manual() {
-        console.log(`FLAG\tTYPE\t\tDEFAULT\tDESCRIPTION`)
-
+        console.log(``)
+        console.log(`Flags:`)
         for (const flag in this.definition) {
             const def = this.definition[flag]
-            console.log(`-${flag}\t[${this.typeOf(flag).name}]\t${this.defaultOf(flag)}\t${def.description}. `)
+            console.log(`  -${flag}  <${this.typeOf(flag).name}>\t  ${def.description} (default = ${JSON.stringify(this.defaultOf(flag))})`)
         }
     }
 }
