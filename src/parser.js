@@ -15,7 +15,7 @@ export default class Parser {
             const value = this.parseValue(flag, parts[i + 1])
             const isValueFlag = value === undefined
             if (!isValueFlag) i++
-            append({ [flag]: value })
+            append({ flag, value })
         }
 
         return { ...this.schema.defaults(), ...args }
