@@ -8,3 +8,4 @@ export const appendTo = (args, arg) => {
     args[arg.flag] = arg.value
 }
 export const globalDefault = 0
+export const name = 'number'

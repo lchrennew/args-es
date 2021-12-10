@@ -6,23 +6,23 @@ import Schema from "./schema.js";
 import Parser from "./parser.js";
 
 const schema = new Schema({
-    a: {
-        description: '',
+    l: {
+        description: 'Logging, logging will be disabled if this flag does not exists or set to false, true for enabled.',
         type: boolean,
-        default: false
+        default: true
     },
-    b: {
-        description: '',
+    p: {
+        description: 'Network port to listen',
         type: number,
-        default: 1
-    },
-    c: {
-        description: '',
-        type: string,
-        default: 'hello world'
+        default: 8080
     },
     d: {
-        description: '',
+        description: 'Directory to save logs',
+        type: string,
+        default: '/usr/logs'
+    },
+    g: {
+        description: 'A demo list',
         type: list,
     }
 })
@@ -30,15 +30,24 @@ const schema = new Schema({
 const parser = new Parser(schema)
 
 const cases = [
-    '-a',
-    '-a true',
     '',
-    '-b 0 -c hello_world',
-    '-b 0 -c hello_world -d a -d b -d e,f',
-    '-b -2 -c hello_world -d a -d b -d e,f',
+    '-l',
+    '-l true',
+    '-l false',
+    '-p 80 -d hello_world',
+    '-p 0 -d hello_world -g a -g b -g e,f',
+    '-p -2 -d hello_world -g a -g b -g e,f',
+    '-p -2 -d hello world -g a -g b -g e,f',
 ]
 cases.forEach(args => {
-    console.log(args)
-    console.table(parser.parse(args))
-    console.log(parser.parse(args))
+    console.log(`CASE: `, args)
+
+    try {
+        const result = parser.parse(args)
+        console.log(result)
+        console.log('\n')
+    } catch (e) {
+        console.info(e)
+        schema.manual()
+    }
 })

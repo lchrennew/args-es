@@ -5,7 +5,7 @@ export default class Schema {
         this.definition = definition
     }
 
-    defined(flag){
+    defined(flag) {
         return !!this.definition[flag]
     }
 
@@ -22,5 +22,14 @@ export default class Schema {
             Object
                 .entries(this.definition)
                 .map(entry => [ entry[0], this.defaultOf(entry[0]) ]))
+    }
+
+    manual() {
+        console.log(`FLAG\tTYPE\t\tDEFAULT\tDESCRIPTION`)
+
+        for (const flag in this.definition) {
+            const def = this.definition[flag]
+            console.log(`-${flag}\t[${this.typeOf(flag).name}]\t${this.defaultOf(flag)}\t${def.description}. `)
+        }
     }
 }

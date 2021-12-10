@@ -10,3 +10,4 @@ export const appendTo = (args, arg) => {
     args[arg.flag] = arg.value
 }
 export const globalDefault = false
+export const name = 'boolean'

@@ -21,17 +21,17 @@ export default class Parser {
         return { ...this.schema.defaults(), ...args }
     }
 
-    isFlag(part) {
+    checkFlag(part) {
         return part?.match(/^-.$/) && this.schema.defined(part[1])
     }
 
     parseFlag(part) {
-        if (!this.isFlag(part)) throw `invalid flag ${part}`
+        if (!this.checkFlag(part)) throw `invalid flag ${part}`
         return part[1]
     }
 
     parseValue(flag, part) {
-        if (this.isFlag(part)) return
+        if (this.checkFlag(part)) return
         const type = this.schema.typeOf(flag)
         return type.parse(part, this.schema.defaultOf(flag))
     }
