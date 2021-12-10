@@ -12,9 +12,8 @@ export default class ArgsParser {
 
         for (let i = 0; i < parts.length; i++) {
             const flag = this.#parseFlag(parts[i])
-            const value = this.#parseValue(flag, parts[i + 1])
-            const isValueFlag = value === undefined
-            if (!isValueFlag) i++
+            const { value, flagLike } = this.#parseValue(flag, parts[i + 1])
+            if (!flagLike) i++
             append({ flag, value })
         }
 
@@ -31,8 +30,9 @@ export default class ArgsParser {
     }
 
     #parseValue(flag, part) {
-        if (this.#validateFlag(part)) return
+        const defaultValue = this.#schema.defaultOf(flag)
+        const flagLike = this.#validateFlag(part)
         const type = this.#schema.typeOf(flag)
-        return type.parse(part, this.#schema.defaultOf(flag))
+        return { value: type.parse(flagLike ? undefined : part, defaultValue), flagLike }
     }
 }

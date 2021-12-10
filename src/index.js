@@ -32,6 +32,10 @@ const parser = new ArgsParser(schema)
 const cases = [
     '',
     '-l',
+    'l -g',
+    '-l -g',
+    '-g',
+    '-g -g x',
     '-l true',
     '-l false',
     '-d hello_world -p 80 -l fAlse',

@@ -1,7 +1,7 @@
 export { appendTo } from "./common/unique.js";
-export const parse = (value, defaultValue = globalDefault) => {
+export const parse = value => {
     const enums = [ 'false', 'true' ]
-    const normalized = (value ?? `${defaultValue}`).toLowerCase()
+    const normalized = (value ?? `${true}`).toLowerCase()
     const index = enums.indexOf(normalized)
     if (index < 0) throw `invalid boolean value ${normalized}`
     return !!index
