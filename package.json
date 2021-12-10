@@ -1,0 +1,12 @@
+{
+  "name": "args",
+  "version": "1.0.0",
+  "description": "Args Kata",
+  "main": "src/index.js",
+  "author": "Lichun",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "run": "node src/index.js"
+  }
+}
