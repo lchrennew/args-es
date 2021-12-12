@@ -1,5 +1,5 @@
 export const parse = (value, defaultValue = globalDefault) => {
-    return value?.split(',') ?? defaultValue
+    return value ? value.split(',') : defaultValue
 }
 export const appendTo = (args, arg) => {
     args[arg.flag] ??= []

@@ -1,40 +1,19 @@
-import * as boolean from './types/boolean.js'
-import * as string from './types/string.js'
-import * as number from './types/number.js'
-import * as list from './types/list.js'
 import ArgsSchema from "./args-schema.js";
 import ArgsParser from "./args-parser.js";
+import sampleSchemaDefinition from "./sample-schema-definition.js";
+import ArgsManual from "./args-manual.js";
 
-const schema = new ArgsSchema({
-    l: {
-        description: 'Logging, logging will be disabled if this flag does not exists or set to false, true for enabled',
-        type: boolean,
-        default: false
-    },
-    p: {
-        description: 'Network port to listen',
-        type: number,
-        default: 8080
-    },
-    d: {
-        description: 'Directory to save logs',
-        type: string,
-        default: '/usr/logs'
-    },
-    g: {
-        description: 'A demo list',
-        type: list,
-    }
-})
+const schema = new ArgsSchema(sampleSchemaDefinition)
 
 const parser = new ArgsParser(schema)
-
+const manual = new ArgsManual(sampleSchemaDefinition)
 const cases = [
     '',
     '-l',
     'l -g',
     '-l -g',
     '-g',
+    '-s',
     '-g -g x',
     '-l true',
     '-l false',
@@ -53,7 +32,7 @@ cases.forEach(args => {
         console.log(`RESULT:`, result)
     } catch (e) {
         console.warn(`ERROR:`, e)
-        schema.manual()
+        manual.print()
     }
     console.log('\n')
 })
